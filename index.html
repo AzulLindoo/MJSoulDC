@@ -61,21 +61,15 @@
     </div>
 
     <script>
-        // --- ★ ★ ★ EDITE ESTAS DUAS LINHAS ★ ★ ★ ---
+        // --- O SEU ID E LINK JÁ ESTÃO CONFIGURADOS ---
 
-        // 1. PASSO OBRIGATÓRIO: Cole o seu Application ID (os números) aqui
+        // 1. O seu Application ID
         const MEU_CLIENT_ID = "1433553791810277549"; 
 
-        // 2. Este é o link que você quer abrir
+        // 2. O link que você quer abrir
         const MEU_URL_EXTERNO = "https://mahjongsoul.game.yo-star.com"; 
 
-        // --- Daqui para baixo, não precisa de mexer ---
-
-        // Verifica se o CLIENT_ID foi alterado
-        if (MEU_CLIENT_ID === "1433553791810277549") {
-            document.getElementById('link-externo-btn').textContent = "ERRO: CLIENT_ID não configurado";
-            console.error("ERRO: Por favor, edite o ficheiro index.html e insira o seu CLIENT_ID.");
-        }
+        // --- Daqui para baixo, o código trata de tudo ---
 
         // Inicializa o SDK
         const discordSdk = new DiscordSDK(MEU_CLIENT_ID);
@@ -102,10 +96,8 @@
             }
         }
 
-        // Inicia a função se o CLIENT_ID estiver definido
-        if (MEU_CLIENT_ID !== "1433553791810277549") {
-            setupDiscordSdk();
-        }
+        // Inicia a função
+        setupDiscordSdk();
     </script>
 </body>
 </html>
