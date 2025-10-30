@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Minha Atividade</title>
+    <title>Atividade Mahjong Soul</title>
+    
+    <script src="https://discord.com/apps/sdk/1.0.0/embedded-app.js"></script>
+
     <style>
-        /* Estilo simples para centrar tudo e parecer o Discord */
+        /* Estilo para parecer o Discord */
         body, html {
             height: 100%;
             margin: 0;
@@ -14,7 +17,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-color: #2c2f33; /* Cor de fundo escura do Discord */
+            background-color: #2c2f33;
             color: white;
         }
         .container {
@@ -26,9 +29,9 @@
         }
         p {
             font-size: 16px;
-            color: #b9bbbe; /* Cor de texto secundária do Discord */
+            color: #b9bbbe;
         }
-        a.button {
+        button {
             display: inline-block;
             font-size: 18px;
             padding: 15px 30px;
@@ -38,20 +41,71 @@
             border-radius: 8px;
             font-weight: bold;
             transition: background-color 0.2s;
+            border: none;
+            cursor: pointer;
         }
-        a.button:hover {
+        button:hover {
             background-color: #4752C4;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bem-vindo à Atividade!</h1>
-        <p>Clique no botão abaixo para abrir o nosso site principal numa nova aba.</p>
+        <h1>Iniciar Mahjong Soul</h1>
+        <p>Clique no botão abaixo para abrir o jogo no seu navegador.</p>
         <br>
-        <a href="https://mahjongsoul.game.yo-star.com" target="_blank" rel="noopener noreferrer" class="button">
-            Ir para o Site
-        </a>
+        
+        <button id="link-externo-btn">
+            Jogar Mahjong Soul
+        </button>
     </div>
+
+    <script>
+        // --- ★ ★ ★ EDITE ESTAS DUAS LINHAS ★ ★ ★ ---
+
+        // 1. PASSO OBRIGATÓRIO: Cole o seu Application ID (os números) aqui
+        const MEU_CLIENT_ID = "1433553791810277549"; 
+
+        // 2. Este é o link que você quer abrir
+        const MEU_URL_EXTERNO = "https://mahjongsoul.game.yo-star.com"; 
+
+        // --- Daqui para baixo, não precisa de mexer ---
+
+        // Verifica se o CLIENT_ID foi alterado
+        if (MEU_CLIENT_ID === "1433553791810277549") {
+            document.getElementById('link-externo-btn').textContent = "ERRO: CLIENT_ID não configurado";
+            console.error("ERRO: Por favor, edite o ficheiro index.html e insira o seu CLIENT_ID.");
+        }
+
+        // Inicializa o SDK
+        const discordSdk = new DiscordSDK(MEU_CLIENT_ID);
+
+        // Função principal
+        async function setupDiscordSdk() {
+            try {
+                // Espera que o SDK se conecte ao cliente Discord
+                await discordSdk.ready();
+
+                // Encontra o botão
+                const meuBotao = document.getElementById('link-externo-btn');
+                
+                // Adiciona o 'ouvinte' de clique
+                meuBotao.addEventListener('click', () => {
+                    console.log("Botão clicado, a pedir ao Discord para abrir:", MEU_URL_EXTERNO);
+                    // Pede ao Discord para abrir o link
+                    discordSdk.commands.openExternalLink({ url: MEU_URL_EXTERNO });
+                });
+
+            } catch (error) {
+                console.error("Erro ao inicializar o SDK do Discord:", error);
+                document.getElementById('link-externo-btn').textContent = "Erro ao carregar SDK";
+            }
+        }
+
+        // Inicia a função se o CLIENT_ID estiver definido
+        if (MEU_CLIENT_ID !== "1433553791810277549") {
+            setupDiscordSdk();
+        }
+    </script>
 </body>
 </html>
